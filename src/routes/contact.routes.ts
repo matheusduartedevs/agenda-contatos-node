@@ -12,7 +12,18 @@ export async function contactsRoutes(fastify: FastifyInstance) {
         const emailUser = req.headers['email']
 
         try {
-            const data = await contactUseCase.create({email, name, phone, userEmail: emailUser})
+            const data = await contactUseCase.create({ email, name, phone, userEmail: emailUser })
+            return reply.send(data)
+        } catch (error) {
+            reply.send(error)
+        }
+    })
+
+    fastify.get('/', async (req, reply) => {
+        const emailUser = req.headers['email']
+
+        try {
+            const data = await contactUseCase.listAllContacts(emailUser)
             return reply.send(data)
         } catch (error) {
             reply.send(error)
