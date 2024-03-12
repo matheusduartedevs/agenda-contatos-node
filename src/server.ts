@@ -1,5 +1,6 @@
 import fastify, { FastifyInstance } from "fastify";
 import { userRoutes } from "./routes/user.routes";
+import { contactsRoutes } from "./routes/contact.routes";
 
 const app: FastifyInstance = fastify()
 
@@ -7,9 +8,9 @@ app.register(userRoutes, {
     prefix: '/users',
 })
 
-app.listen(
-    {
-        port: 3100,
-    },
-    () => console.log('Server running on port 3100')
+app.register(contactsRoutes, {
+    prefix: '/contacts',
+})
+
+app.listen({ port: 3100, }, () => console.log('Server running on port 3100')
 )
